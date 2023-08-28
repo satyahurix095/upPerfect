@@ -115,6 +115,7 @@ const FileUpload = () => {
   return (
     <div className="cont">
       <h1>File upload functionality</h1>
+    
       <div className="file-upload-container">
         <div
           className={`file-dropzone ${error && "error"}`}
