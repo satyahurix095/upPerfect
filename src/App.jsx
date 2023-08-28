@@ -29,9 +29,7 @@ export default function App() {
 function Home() {
   return (
     <div>
-      <br />
-      <br />
-      <h1>Welcome home sir!</h1>
+      <br/>
       <img
         src="https://i.pinimg.com/originals/bd/da/fc/bddafc029d86df72bef91bba70973c71.jpg"
         alt="welcome"
