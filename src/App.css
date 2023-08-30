@@ -798,3 +798,67 @@ button:hover {
     margin-bottom: 10px;
   }
 }
+/* App.css */
+/* ... Existing styles ... */
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .Max-container {
+    padding: 10px;
+  }
+
+  .link-block {
+    margin-bottom: 10px;
+  }
+
+  .link-block a {
+    margin: 0 8px;
+  }
+
+  .cont {
+    margin: 10px;
+    padding: 15px;
+  }
+
+  .file-upload-container {
+    margin-top: 10px;
+  }
+
+  .file-dropzone p {
+    font-size: 14px;
+  }
+
+  .selected-files {
+    margin-top: 10px;
+  }
+
+  .file-item {
+    margin-bottom: 8px;
+  }
+
+  .thumbnail {
+    width: 60px;
+    height: 60px;
+  }
+
+  .remove-button {
+    padding: 3px 8px;
+  }
+
+  .error-message {
+    font-size: 14px;
+  }
+
+  .upload-progress {
+    margin-top: 8px;
+  }
+
+  .progress-bar {
+    line-height: 18px;
+  }
+
+  button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
