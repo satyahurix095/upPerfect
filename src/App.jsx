@@ -95,15 +95,26 @@ const FileUpload = () => {
     setUploading(true);
     setProgress(0);
 
-    for (const file of selectedFiles) {
+    const totalFiles = selectedFiles.length;
+    const totalChunks = totalFiles === 1 ? 10 : totalFiles;
+
+    if (totalFiles === 0) {
+      setError("No files selected for upload.");
+      setUploading(false);
+      return;
+    }
+
+    for (const [index, file] of selectedFiles.entries()) {
       const formData = new FormData();
       formData.append("file", file);
 
-      try {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        setProgress((prevProgress) => prevProgress + 100 / selectedFiles.length);
-      } catch (error) {
-        setError("Error uploading file.");
+      for (let chunk = 1; chunk <= totalChunks; chunk++) {
+        try {
+          await new Promise((resolve) => setTimeout(resolve, 100));
+          setProgress(((index * totalChunks + chunk) * 100) / (totalFiles * totalChunks));
+        } catch (error) {
+          setError("Error uploading file.");
+        }
       }
     }
 
