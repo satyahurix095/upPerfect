@@ -73,6 +73,7 @@ const FileUpload = () => {
     updatedFiles.splice(index, 1);
     setSelectedFiles(updatedFiles);
   };
+ 
 
   const handleDrop = (event) => {
     event.preventDefault();
@@ -122,6 +123,13 @@ const FileUpload = () => {
     setSelectedFiles([]);
     setProgress(0);
   };
+  const handleCancel = () => {
+    setUploading(false); // Stop the upload process
+    setSelectedFiles([]); // Clear selected files
+    setProgress(0); // Reset progress
+    setError(""); // Clear error
+    window.location.reload(); // Reloads the page
+  };
 
   return (
     <div className="cont">
@@ -167,6 +175,12 @@ const FileUpload = () => {
         >
           Upload Files
         </button>
+        <div className="button-container">
+  <button onClick={handleCancel} className="cancel-button">
+    Cancel
+  </button>
+ 
+     </div>
         {uploading && (
           <div className="upload-progress">
             <div className="progress-bar" style={{ width: `${progress}%` }}>
@@ -176,5 +190,6 @@ const FileUpload = () => {
         )}
       </div>
     </div>
+  
   );
 };
