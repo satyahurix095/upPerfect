@@ -29,7 +29,7 @@ export default function App() {
 function Home() {
   return (
     <div>
-      <br/>
+      <br />
       <img
         src="https://i.pinimg.com/originals/bd/da/fc/bddafc029d86df72bef91bba70973c71.jpg"
         alt="welcome"
@@ -41,7 +41,7 @@ function Home() {
 const FileUpload = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [uploading, setUploading] = useState(false);
-  const [progress, setProgress] = useState(0);
+  const [progressMap, setProgressMap] = useState({}); // Map to store progress for each file
   const [error, setError] = useState("");
 
   const allowedFormats = [
@@ -73,7 +73,6 @@ const FileUpload = () => {
     updatedFiles.splice(index, 1);
     setSelectedFiles(updatedFiles);
   };
- 
 
   const handleDrop = (event) => {
     event.preventDefault();
@@ -94,10 +93,7 @@ const FileUpload = () => {
   const handleUpload = async () => {
     setError("");
     setUploading(true);
-    setProgress(0);
-
     const totalFiles = selectedFiles.length;
-    const totalChunks = totalFiles === 1 ? 10 : totalFiles;
 
     if (totalFiles === 0) {
       setError("No files selected for upload.");
@@ -109,10 +105,20 @@ const FileUpload = () => {
       const formData = new FormData();
       formData.append("file", file);
 
+      setProgressMap((prevProgressMap) => ({
+        ...prevProgressMap,
+        [index]: 0,
+      }));
+
+      const totalChunks = 10; // You can adjust the number of chunks as needed
+
       for (let chunk = 1; chunk <= totalChunks; chunk++) {
         try {
           await new Promise((resolve) => setTimeout(resolve, 100));
-          setProgress(((index * totalChunks + chunk) * 100) / (totalFiles * totalChunks));
+          setProgressMap((prevProgressMap) => ({
+            ...prevProgressMap,
+            [index]: (chunk * 100) / totalChunks,
+          }));
         } catch (error) {
           setError("Error uploading file.");
         }
@@ -121,12 +127,13 @@ const FileUpload = () => {
 
     setUploading(false);
     setSelectedFiles([]);
-    setProgress(0);
+    setProgressMap({});
   };
+
   const handleCancel = () => {
     setUploading(false); // Stop the upload process
     setSelectedFiles([]); // Clear selected files
-    setProgress(0); // Reset progress
+    setProgressMap({}); // Clear progress
     setError(""); // Clear error
     window.location.reload(); // Reloads the page
   };
@@ -134,7 +141,7 @@ const FileUpload = () => {
   return (
     <div className="cont">
       <h1>File upload functionality</h1>
-    
+
       <div className="file-upload-container">
         <div
           className={`file-dropzone ${error && "error"}`}
@@ -158,6 +165,14 @@ const FileUpload = () => {
             <div key={index} className="file-item">
               <div className="file-info">
                 <Thumbnail file={file} />
+                <div className="progress-container">
+                  <div
+                    className="progress-bar"
+                    style={{ width: `${progressMap[index] || 0}%` }}
+                  >
+                    {Math.round(progressMap[index] || 0)}%
+                  </div>
+                </div>
                 <button
                   className="remove-button"
                   onClick={() => handleRemoveFile(index)}
@@ -169,27 +184,18 @@ const FileUpload = () => {
           ))}
         </div>
         {error && <div className="error-message">{error}</div>}
-        <button
-          onClick={handleUpload}
-          disabled={uploading || selectedFiles.length === 0}
-        >
-          Upload Files
-        </button>
         <div className="button-container">
-  <button onClick={handleCancel} className="cancel-button">
-    Cancel
-  </button>
- 
-     </div>
-        {uploading && (
-          <div className="upload-progress">
-            <div className="progress-bar" style={{ width: `${progress}%` }}>
-              {Math.round(progress)}%
-            </div>
-          </div>
-        )}
+          <button onClick={handleCancel} className="cancel-button">
+            Cancel
+          </button>
+          <button
+            onClick={handleUpload}
+            disabled={uploading || selectedFiles.length === 0}
+          >
+            Upload Files
+          </button>
+        </div>
       </div>
     </div>
-  
   );
 };
