@@ -110,7 +110,7 @@ const FileUpload = () => {
         [index]: 0,
       }));
 
-      const totalChunks = 10; // You can adjust the number of chunks as needed
+      const totalChunks = 10; 
 
       for (let chunk = 1; chunk <= totalChunks; chunk++) {
         try {
@@ -148,6 +148,7 @@ const FileUpload = () => {
           onDragOver={(e) => e.preventDefault()}
           onDrop={handleDrop}
         >
+          <br/>
           <label className="browse-button">
             Browse
             <input
