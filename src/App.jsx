@@ -131,11 +131,11 @@ const FileUpload = () => {
   };
 
   const handleCancel = () => {
-    setUploading(false); // Stop the upload process
-    setSelectedFiles([]); // Clear selected files
-    setProgressMap({}); // Clear progress
-    setError(""); // Clear error
-    // Reloads the page
+    setUploading(false); 
+    setSelectedFiles([]); 
+    setProgressMap({}); 
+    setError(""); 
+    
   };
 
   return (
