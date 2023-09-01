@@ -155,6 +155,7 @@ h1 {
   text-align: center;
   line-height: 20px;
   transition: width 0.3s;
+  border-radius: 3px ;
 }
 
 button {
