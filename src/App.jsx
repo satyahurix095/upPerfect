@@ -135,7 +135,7 @@ const FileUpload = () => {
     setSelectedFiles([]); // Clear selected files
     setProgressMap({}); // Clear progress
     setError(""); // Clear error
-    window.location.reload(); // Reloads the page
+    // Reloads the page
   };
 
   return (
