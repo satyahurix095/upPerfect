@@ -134,7 +134,8 @@ h1 {
 
 .error-message {
   color: #ff0000;
-  margin-top: 10px;
+  text-align: center;
+  margin: 20px 20px;
 }
 
 .upload-progress {
