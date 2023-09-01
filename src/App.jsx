@@ -158,6 +158,7 @@ const FileUpload = () => {
             />
           </label>
           <br />
+          <br />
           <p>Drag & Drop files here or click to browse</p>
         </div>
         <div className="selected-files">
